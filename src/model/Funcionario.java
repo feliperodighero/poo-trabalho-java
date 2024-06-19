@@ -1,11 +1,13 @@
 package model;
 
-public class Funcionario extends Pessoa {
+import java.io.Serializable;
 
-    private String registro;
-    private float salario;
+public class Funcionario extends Pessoa implements Serializable {
 
-    public Funcionario(String nome, int idade, String endereco, char sexo, float altura, String telefone) {
+    String registro;
+    float salario;
+
+    public Funcionario(String nome, int idade, String endereco, char sexo, float altura, String telefone, String registro, float salario) {
         super(nome, idade, endereco, sexo, altura, telefone);
         this.registro = registro;
         this.salario = salario;
@@ -19,7 +21,7 @@ public class Funcionario extends Pessoa {
         this.registro = registro;
     }
 
-    public double getSalario() {
+    public float getSalario() {
         return salario;
     }
 
@@ -27,4 +29,17 @@ public class Funcionario extends Pessoa {
         this.salario = salario;
     }
 
+    @Override
+    public String toString() {
+        return "Funcionario{" +
+                "nome='" + getNome() + '\'' +
+                ", idade=" + getIdade() +
+                ", endereco='" + getEndereco() + '\'' +
+                ", sexo=" + getSexo() +
+                ", altura=" + getAltura() +
+                ", telefone='" + getTelefone() + '\'' +
+                ", registro='" + registro + '\'' +
+                ", salario=" + salario +
+                '}';
+    }
 }

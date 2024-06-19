@@ -1,0 +1,8 @@
+teste3
+19
+alemanha
+m
+170.0
+99
+null
+0.0

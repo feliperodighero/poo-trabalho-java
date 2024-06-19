@@ -8,6 +8,13 @@ package view;
  *
  * @author C2testenovo
  */
+
+import java.util.List;
+import model.Funcionario;
+import model.Estagiario;
+import javax.swing.JOptionPane;
+import model.CadastroArquivo;
+
 public class CadastroFuncionario extends javax.swing.JInternalFrame {
 
     /**
@@ -29,32 +36,51 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         panelCad = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Cadastrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrar(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Visualizar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVisualizar(evt);
+            }
+        });
+
+        jButton3.setText("Excluir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoExcluir(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelCadLayout = new javax.swing.GroupLayout(panelCad);
         panelCad.setLayout(panelCadLayout);
         panelCadLayout.setHorizontalGroup(
             panelCadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCadLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(79, 79, 79)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCadLayout.createSequentialGroup()
-                .addContainerGap(252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addGap(85, 85, 85))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         panelCadLayout.setVerticalGroup(
             panelCadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCadLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addGap(92, 92, 92)
+                .addGroup(panelCadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -71,10 +97,54 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botaoCadastrar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrar
+        String nome = JOptionPane.showInputDialog("Nome:");
+        int idade = Integer.parseInt(JOptionPane.showInputDialog("Idade:"));
+        String endereco = JOptionPane.showInputDialog("Endereço:");
+        char sexo = JOptionPane.showInputDialog("Sexo (M/F):").charAt(0);
+        float altura = Float.parseFloat(JOptionPane.showInputDialog("Altura:"));
+        String telefone = JOptionPane.showInputDialog("Telefone:");
+        String registro = JOptionPane.showInputDialog("Registro:");
+        float salario = Float.parseFloat(JOptionPane.showInputDialog("Salário:"));
+
+        // Verificação dos valores capturados
+        System.out.println("Nome: " + nome);
+        System.out.println("Idade: " + idade);
+        System.out.println("Endereço: " + endereco);
+        System.out.println("Sexo: " + sexo);
+        System.out.println("Altura: " + altura);
+        System.out.println("Telefone: " + telefone);
+        System.out.println("Registro: " + registro);
+        System.out.println("Salário: " + salario);
+
+        Funcionario funcionario = new Funcionario(nome, idade, endereco, sexo, altura, telefone, registro, salario);
+        CadastroArquivo.salvarCadastro(funcionario);
+
+        JOptionPane.showMessageDialog(this, "Funcionário cadastrado com sucesso!");
+    }//GEN-LAST:event_botaoCadastrar
+
+    private void botaoExcluir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluir
+        String nome = JOptionPane.showInputDialog("Informe o nome do cadastro a excluir:");
+        CadastroArquivo.excluirCadastro(nome);
+        JOptionPane.showMessageDialog(this, "Cadastro excluído com sucesso!");
+    }//GEN-LAST:event_botaoExcluir
+
+    private void botaoVisualizar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVisualizar
+        String nome = JOptionPane.showInputDialog("Informe o nome do cadastro a visualizar:");
+        Object cadastro = CadastroArquivo.lerCadastro(nome);
+        
+        if (cadastro != null) {
+            JOptionPane.showMessageDialog(this, cadastro.toString(), "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Cadastro não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoVisualizar
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel panelCad;
     // End of variables declaration//GEN-END:variables
 }
